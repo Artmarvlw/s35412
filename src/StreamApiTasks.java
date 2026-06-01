@@ -115,4 +115,15 @@ public class StreamApiTasks {
                 .sorted()
                 .toList();
     }
+
+    // Task 4:
+    static List<String> soldProductNames(List<Order> orders) {
+        return orders.stream()
+                .filter(order -> order.status() != OrderStatus.CANCELLED)
+                .flatMap(order -> order.items().stream())
+                .map(item -> item.product().name())
+                .distinct()
+                .sorted()
+                .toList();
+    }
 }
