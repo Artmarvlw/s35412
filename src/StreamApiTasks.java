@@ -103,4 +103,16 @@ public class StreamApiTasks {
                 .sorted(Comparator.comparingDouble(Order::totalValue).reversed())
                 .toList();
     }
+
+    // Task 3 :
+    static List<String> uniqueCustomerNames(List<Order> orders) {
+
+
+
+        return orders.stream()
+                .map(Order::customerName)
+                .distinct()
+                .sorted()
+                .toList();
+    }
 }
