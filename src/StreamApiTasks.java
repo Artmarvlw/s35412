@@ -142,4 +142,10 @@ public class StreamApiTasks {
                 .mapToDouble(Order::totalValue)
                 .average();
     }
+
+    //Task 7:
+    static Map<OrderStatus, Long> countByStatus(List<Order> orders) {
+        return orders.stream()
+                .collect(Collectors.groupingBy(Order::status, Collectors.counting()));
+ }
 }
