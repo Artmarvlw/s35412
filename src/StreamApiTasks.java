@@ -95,4 +95,12 @@ public class StreamApiTasks {
                 .toList();
 
     }
+
+    // Task 2:
+    static List<Order> ordersAbove(List<Order> orders, double minValue) {
+        return orders.stream()
+                .filter(order -> order.totalValue() > minValue)
+                .sorted(Comparator.comparingDouble(Order::totalValue).reversed())
+                .toList();
+    }
 }
