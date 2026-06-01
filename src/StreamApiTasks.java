@@ -183,4 +183,47 @@ public class StreamApiTasks {
              .collect(Collectors.partitioningBy(order -> order.totalValue() >= threshold));
 
  }
+ //Task 11 and Extra Task:
+    static Optional<Order> mostExpensiveDeliveredOrder(List<Order> orders) {
+        return orders.stream()
+                .filter(order -> order.status() == OrderStatus.DELIVERED)
+                .max(Comparator.comparingDouble(Order::totalValue));
+    }
+
+
+
+
+
+
+
+
+    static DoubleSummaryStatistics activeOrderStatistics(List<Order> orders) {
+        return orders.stream()
+                .filter(order -> order.status() != OrderStatus.CANCELLED)
+                .collect(Collectors.summarizingDouble(Order::totalValue));
+    }
+
+
+
+
+
+
+
+    public static void main(String[] args) {
+        List<Order> orders = sampleOrders();
+        System.out.println("Task 1: " + activeOrderIds(orders));
+        System.out.println("Task 2: " + ordersAbove(orders, 3000).stream().map(Order::id).toList());
+        System.out.println("Task 3: " + uniqueCustomerNames(orders));
+        System.out.println("Task 4: " + soldProductNames(orders));
+        System.out.println("Task 5: " + totalRevenue(orders));
+        System.out.println("Task 6: " + averageDeliveredOrderValue(orders).orElse(0.0));
+        System.out.println("Task 7: " + countByStatus(orders));
+        System.out.println("Task 8: " + revenueByCategory(orders));
+        System.out.println("Task 9: " + topCustomers(orders, 3));
+        System.out.println("Task 10: " + partitionActiveOrdersByValue(orders, 3000));
+        System.out.println("Task 11: " + mostExpensiveDeliveredOrder(orders).map(Order::id).orElse("none"));
+        System.out.println("Extra Task: " + activeOrderStatistics(orders));
+    }
+
+
 }
