@@ -176,5 +176,11 @@ public class StreamApiTasks {
                      LinkedHashMap::new
              ));
  }
+ // Task 10:
+ static Map<Boolean, List<Order>> partitionActiveOrdersByValue(List<Order> orders, double threshold) {
+     return orders.stream()
+             .filter(order -> order.status() != OrderStatus.CANCELLED)
+             .collect(Collectors.partitioningBy(order -> order.totalValue() >= threshold));
 
+ }
 }
