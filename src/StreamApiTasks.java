@@ -148,4 +148,15 @@ public class StreamApiTasks {
         return orders.stream()
                 .collect(Collectors.groupingBy(Order::status, Collectors.counting()));
  }
+
+ // Task 8:
+ static Map<String, Double> revenueByCategory(List<Order> orders) {
+     return orders.stream()
+             .filter(order -> order.status() != OrderStatus.CANCELLED)
+             .flatMap(order -> order.items().stream())
+             .collect(Collectors.groupingBy(
+                     item -> item.product().category(),
+                     Collectors.summingDouble(OrderItem::totalPrice)));
+ }
+
 }
