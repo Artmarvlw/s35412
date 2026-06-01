@@ -159,4 +159,22 @@ public class StreamApiTasks {
                      Collectors.summingDouble(OrderItem::totalPrice)));
  }
 
+ // Tsk 9:
+ static Map<String, Double> topCustomers(List<Order> orders, int limit) {
+     return orders.stream()
+             .filter(order -> order.status() != OrderStatus.CANCELLED)
+             .collect(Collectors.groupingBy(
+                     Order::customerName,
+                     Collectors.summingDouble(Order::totalValue)))
+             .entrySet().stream()
+             .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
+             .limit(limit)
+             .collect(Collectors.toMap(
+                     Map.Entry::getKey,
+                     Map.Entry::getValue,
+                     (e1, e2) -> e1,
+                     LinkedHashMap::new
+             ));
+ }
+
 }
