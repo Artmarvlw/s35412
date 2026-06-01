@@ -134,4 +134,12 @@ public class StreamApiTasks {
                 .mapToDouble(Order::totalValue)
                 .sum();
     }
+
+    // Task 6 :
+    static OptionalDouble averageDeliveredOrderValue(List<Order> orders) {
+        return orders.stream()
+                .filter(order -> order.status() == OrderStatus.DELIVERED)
+                .mapToDouble(Order::totalValue)
+                .average();
+    }
 }
